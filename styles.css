@@ -1,0 +1,90 @@
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+/* https://developer.mozilla.org/en-US/docs/web/css/:root - create gloval variables */
+:root {
+    --hue: 200;
+    --saturation: 50%;
+    --foreground-color: hsl(var(--hue), var(--saturation), 75%);
+    --background-color: hsl(var(--hue), var(--saturation), 25%);
+    
+}
+
+
+body {
+
+    margin: 0;
+    background-color: var(--background-color);
+    /*background-color:  #333;*/
+    
+}
+
+.paddle{
+    --position: 50;             /* default window size is 100*/
+    position: absolute;
+    background-color: white;*/
+    background-color: var(--foreground-color);
+    width: 1vh;        /* vh looks at screen HEIGHT + scales wrt this */
+    height: 10vh;
+
+    /* Position paddle in centre of screen */
+    top: calc(var(--position)*1vh);  /* 50vh;  https://www.w3schools.com/cssref/func_calc.asp calculate width of element*/
+    transform: translateY(-50%)
+}
+
+.paddle.left{
+    left: 1vw;
+
+}
+
+.paddle.right{
+    right: 1vw  /* 1% of screen width away from RHS*/
+
+}
+
+
+.ball {
+    --x: 50; /* start at cenre by default*/
+    --y: 50;
+
+    position: absolute;
+    background-color: var(--foreground-color);
+    
+    /* define start posiiton of ball THEN define width of ball*/
+    left: calc(var(--x)*1vw);
+    top: calc(var(--y)*1vh);  /* 50vh;  https://www.w3schools.com/cssref/func_calc.asp calculate width of element*/
+    
+    width: 2.5vh;        
+    height: 2.5vh;
+
+    /* shift ball so dead centre wrt its own dimensions. Dowm and left by 50% of its dims*/
+    transform: translateY(-50%, -50%);
+    border-radius: 50%;
+}
+
+.score{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 7vh;
+    color: var(--foreground-color);
+}
+
+/* slect every direct child inide score*/
+/* styling the items inside the defined flexbox*/
+.score >*{
+    flex-grow: 1; /*everything sized as 1, so same proportions. https://www.w3schools.com/cssref/css3_pr_flex-grow.asp*/
+    flex-basis: 0; 
+
+    padding: 0 2vh; /**0 top and bottom. 2vh between/ Padding wrt container/ object within */
+    margin: 1vh 0;    /*margin is wrt the WHOLE window. Definitional, it seems*/
+    opacity: 0.5;
+}
+
+.score > :first-child{
+    text-align: right; /* centre, right, justify*/
+    border-right: .5vh solid var(--foreground-color);
+
+}
